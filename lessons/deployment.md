@@ -10,9 +10,9 @@ This lesson consists of the following exercises:
 
 |Nr|Exercise
 |-|-
-|1|[Azure Resources](#1-azure-resources)
-|2|[Creating Resources](#2-creating-resources)
-|3|[Publishing the Solution](#3-publishing-the-solution)
+|1|[Azure resources](#1-azure-resources)
+|2|[Creating resources](#2-creating-resources)
+|3|[Publishing the solution](#3-publishing-the-solution)
 
 ## 1. Azure Resources
 

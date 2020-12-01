@@ -12,6 +12,7 @@ This lesson consists of the following exercises:
 |-|-
 |1|[Setup a unit test project](#1-setup-a-unit-test-project)
 |2|[Writing tests for Azure Functions](#2-writing-tests-for-azure-functions)
+|3|[Writing additional tests](#3-writing-additional-tests)
 
 ## 1. Setup a unit test project
 
