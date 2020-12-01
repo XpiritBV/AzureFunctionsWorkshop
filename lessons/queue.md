@@ -63,7 +63,7 @@ In this exercise, we'll be creating an HttpTrigger function and use the Queue ou
    > 2. Type: `Microsoft.Azure.WebJobs.Extensions.Storage`
    > 3. Select the most recent (non-preview) version of the package.
 
-3. We'll be working the same Player type again as we did in the Blob lesson. Create a new file to the project, called `Player.cs`, and copy/paste [this content](../src/AzureFunctions.Queue/Models/Player.cs) into it.
+3. We'll be working the same Player type again as we did in the Blob lesson. Create a new file to the project, called `Player.cs`, and copy/paste [this content](../src/queue/Models/Player.cs) into it.
 
 4. Now update the function method HttpTrigger argument so it looks like this:
 
