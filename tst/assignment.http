@@ -1,0 +1,15 @@
+POST http://localhost:7071/api/ReceiveGameScoresFunction
+Content-Type: application/json
+
+[
+    {
+    "Nickname" : "Marc Duiker",
+    "Points" : 42,
+    "Game" : "Pacman"
+    },
+    {
+    "Nickname" : "Alex Thissen",
+    "Points" : 1337,
+    "Game" : "Pacman"
+    }
+]
