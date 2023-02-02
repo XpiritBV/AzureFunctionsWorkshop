@@ -1,4 +1,3 @@
-using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 using Microsoft.Extensions.Logging;
@@ -8,6 +7,10 @@ using RetroGamingFunctionApp.Models;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
+using Azure.Data.Tables;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
+using Microsoft.WindowsAzure.Storage.Table;
 
 namespace RetroGamingFunctionApp.Tests
 {
@@ -21,7 +24,7 @@ namespace RetroGamingFunctionApp.Tests
         ILogger log;
         Mock<IAsyncCollector<SignalRMessage>> collectorMock;
         IAsyncCollector<SignalRMessage> messages;
-        Mock<CloudTable> tableMock;
+        Mock<TableClient> tableMock;
 
         [TestInitialize]
         public void TestInitialize()
@@ -32,20 +35,22 @@ namespace RetroGamingFunctionApp.Tests
             collectorMock = new Mock<IAsyncCollector<SignalRMessage>>();
             messages = collectorMock.Object;
             Uri uri = new UriBuilder(Uri.UriSchemeHttp, "accountname.localhost", 80).Uri;
-            tableMock = new Mock<CloudTable>(uri, null);
+            tableMock = new Mock<TableClient>();
         }
 
         [TestMethod]
         public async Task NewHighScoreShouldStoreResultAndSendSignalRMessage()
         {
             // Arrange
-            tableMock.Setup(t => t.ExecuteAsync(It.IsAny<TableOperation>())).ReturnsAsync(new TableResult() { Result = null });
+            var response = new Mock<Response<HighScoreEntry>>();
+            tableMock.Setup(_ => _.GetEntityAsync<HighScoreEntry>(It.IsAny<string>(),It.IsAny<string>(),default, default))
+                .ReturnsAsync(response.Object);
 
             // Act
             await CalculateHighScoreFunction.Run(receivedEvent, tableMock.Object, messages, log);
             
             // Assert
-            tableMock.Verify(m => m.ExecuteAsync(It.IsAny<TableOperation>()), Times.Exactly(2));
+            tableMock.Verify(m => m.UpsertEntityAsync(It.IsAny<HighScoreEntry>(), TableUpdateMode.Merge, default), Times.Exactly(1));
             collectorMock.Verify(m => m.AddAsync(It.IsAny<SignalRMessage>(), CancellationToken.None), Times.Once);
         }
 
@@ -53,16 +58,19 @@ namespace RetroGamingFunctionApp.Tests
         public async Task NoHighScoreShouldNotStoreResultNorSendSignalRMessage()
         {
             // Arrange
-            tableMock.Setup(t => t.ExecuteAsync(It.IsAny<TableOperation>())).ReturnsAsync(
-                new TableResult() {
-                    Result = new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname, Points = score.Points + 1 }
-                });
+            var response = new Mock<Response<HighScoreEntry>>();
+            response.SetupGet(a=>a.Value).Returns(new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname, Points = score.Points + 1 }
+        
+        );
+            tableMock.Setup(_ => _.GetEntityAsync<HighScoreEntry>(It.IsAny<string>(),It.IsAny<string>(),default, default))
+                .ReturnsAsync(response.Object);
+            
 
             // Act
             await CalculateHighScoreFunction.Run(receivedEvent, tableMock.Object, messages, log);
 
             // Assert
-            tableMock.Verify(m => m.ExecuteAsync(It.IsAny<TableOperation>()), Times.Exactly(1));
+            tableMock.Verify(m => m.UpsertEntityAsync(It.IsAny<HighScoreEntry>(),TableUpdateMode.Merge, default), Times.Exactly(0));
             collectorMock.Verify(m => m.AddAsync(It.IsAny<SignalRMessage>(), CancellationToken.None), Times.Never);
         }
     }
