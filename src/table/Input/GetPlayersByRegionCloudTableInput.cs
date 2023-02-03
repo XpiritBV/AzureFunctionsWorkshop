@@ -1,10 +1,9 @@
+using Azure.Data.Tables;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using AzureFunctions.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Azure.Cosmos.Table;
-
 namespace AzureFunctions.Table.Input
 {
     public static class GetPlayersByRegionCloudTableInput
@@ -15,18 +14,13 @@ namespace AzureFunctions.Table.Input
                 AuthorizationLevel.Function,
                 nameof(HttpMethods.Get),
                 Route = "players")] HttpRequest request,
-            [Table(TableConfig.Table)] CloudTable cloudTable)
+            [Table(TableConfig.Table)] TableClient cloudTable)
         {
             string region = request.Query["region"];
-            var regionFilter = new TableQuery<PlayerEntity>()
-                .Where(
-                    TableQuery.GenerateFilterCondition(
-                        "PartitionKey", 
-                        QueryComparisons.Equal,
-                        region));
-            var playerEntities = cloudTable.ExecuteQuery<PlayerEntity>(regionFilter);
-
-            return new OkObjectResult(playerEntities);
+          
+            var playerEntities  = cloudTable.QueryAsync<PlayerEntity>(a=>a.PartitionKey == region);
+          
+            return new OkObjectResult(playerEntities.AsPages());
         }
     }
 }

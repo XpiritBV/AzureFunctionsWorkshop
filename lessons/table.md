@@ -258,9 +258,9 @@ In this exercise we'll be using a `TableEntity` type as the table input binding 
 
    > ❔ __Question__ - Did the function return with a 200 OK, including the player data?
 
-## 5. Using a `CloudTable` Table input binding
+## 5. Using a `TableClient` Table input binding
 
-In this exercise we'll be using a `CloudTable` type as the table input binding, and use a `TableQuery` to retrieve multiple `PlayerEntity` objects from the `players`table and return it in the HTTP response.
+In this exercise we'll be using a `TableClient` type as the table input binding, and use a `TableQuery` to retrieve multiple `PlayerEntity` objects from the `players`table and return it in the HTTP response.
 
 ### Steps
 
@@ -278,10 +278,10 @@ In this exercise we'll be using a `CloudTable` type as the table input binding, 
 4. Update the table input binding to it only uses the table name:
 
    ```csharp
-   [Table(TableConfig.Table)] CloudTable cloudTable
+   [Table(TableConfig.Table)] TableClient cloudTable
    ```
 
-   > 🔎 __Observation__ Note that we're using the CloudTable type, ensure that this type comes from the `Microsoft.Azure.Cosmos.Table` namespace. This type refers to a Table in either a Storage Account, or in CosmosDB.
+   > 🔎 __Observation__ Note that we're using the TableClient type, ensure that this type comes from the `Microsoft.Azure.Cosmos.Table` namespace. This type refers to a Table in either a Storage Account, or in CosmosDB.
 
 5. Replace the contents of the functions method with this:
 

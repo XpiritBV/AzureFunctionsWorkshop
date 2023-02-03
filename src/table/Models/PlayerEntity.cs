@@ -1,8 +1,10 @@
-using Microsoft.Azure.Cosmos.Table;
+using System;
+using Azure;
+using Azure.Data.Tables;
 
 namespace AzureFunctions.Models
 {
-    public class PlayerEntity : TableEntity
+    public class PlayerEntity : ITableEntity
     {
         public PlayerEntity()
         {}
@@ -11,8 +13,9 @@ namespace AzureFunctions.Models
             string id,
             string nickName,
             string email) 
-            : base(partitionKey: region, rowKey: id)
+            
         {
+            PartitionKey = region;
             Region = region;
             Id = id;
             NickName = nickName;
@@ -29,5 +32,10 @@ namespace AzureFunctions.Models
             PartitionKey = Region;
             RowKey = Id;
         }
+
+        public string PartitionKey { get; set; }
+        public string RowKey { get; set; }
+        public DateTimeOffset? Timestamp { get; set; }
+        public ETag ETag { get; set; }
     }
 }
