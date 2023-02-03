@@ -28,7 +28,7 @@ In this exercise, you'll be creating a Function App with the default HTTPTrigger
 
     > 📝 __Tip__ - Create a folder with a descriptive name since that will be used as the name for the project.
 
-3. Select the language you'll be using to code the function, in this lesson we'll be using `C#`.
+3. Select the language you'll be using to code the function, in this lesson we'll be using `C#`. When asked for a runtime, select `.NET 6.0 LTS'.
 4. Select `HTTPTrigger` as the template.
 5. Give the function a name (e.g. `HelloWorldHttpTrigger`).
 6. Enter a namespace for the function (e.g. `AzureFunctions.Demo`).
