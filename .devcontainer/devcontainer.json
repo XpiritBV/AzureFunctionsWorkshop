@@ -1,6 +1,8 @@
 {
 	"name": "Azure Functions & C# - .NET 6 (In-Process)",
-	"dockerFile": "Dockerfile",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
 	"forwardPorts": [ 7071 ],
 
 	// Configure tool-specific properties.

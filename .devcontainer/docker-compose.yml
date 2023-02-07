@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
+        USER_UID: 10000
+        USER_GID: 10000
+
+    init: true
+    volumes:
+      - ..:/workspace:cached
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Uncomment the next line to use a non-root user for all processes.
+    user: vscode
+
+  # run azurite and expose the relevant ports
+  azurite:
+    image: ./'mcr.microsoft.com/azure-storage/azurite'
+    ports:
+      - '10000:10000'
+      - '10001:10001'
+      - '10002:10002'
