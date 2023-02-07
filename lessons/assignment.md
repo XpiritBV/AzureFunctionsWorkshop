@@ -34,12 +34,12 @@ In this exercise, you will build the first function `ReceiveGameScoresFunction` 
     ```json
     [
         {
-        "Nickname" : "Marc Duiker",
+        "Nickname" : "John Doe",
         "Points" : 42,
         "Game" : "Pacman"
         },
         {
-        "Nickname" : "Alex Thissen",
+        "Nickname" : "Jane Doe",
         "Points" : 1337,
         "Game" : "Pacman"
         }
@@ -81,9 +81,10 @@ Next, you will expand the function `ReceiveGameScoresFunction` to send messages 
 3. Change the signature of the function `ReceiveGameScoresFunction` to include an output binding to a storage queue named `gamescorequeue`.
 
     > 📝 __Tip__ - Since there is more than one  message to put on the queue, use the `ICollector<GameScoreReceivedEvent>` type for the output binding.
+    > 📝 __Tip__ - Make sure to create the queue in the Azure Storage Explorer before running the function.
 
 4. Add code to your function implementation right after deserializing the array of game scores. Iterate over the received `GameScore` objects and add a new `GameScoreReceivedEvent` object to the collector. The object should contain a newly generated GUID and the current `GameScore` object.
-5. Build, run and test your application again. Use the Azure Storage Explorer to check that indeed two messages where placed in the queue `gamescorequeue`.
+5. Build, run (`func host start`) and test your application again. Use the Azure Storage Explorer to check that indeed two messages where placed in the queue `gamescorequeue`.
 
 ## 3. Calculate high scores from events
 
@@ -93,38 +94,57 @@ The high scores are stored in a storage table `HighScores`. When a message arriv
 
 ### Steps
 
-1. Create a new Azure Function `CalculateHighScoreFunction` that is triggered by a message in the `gamescorequeue`. The message will contain the `GameScoreReceivedEvent` object used in the previous exercise. Also, the method signature for `Run` should perform input and output binding to a `CloudTable` to read from and write to the storage table `HighScores`.
+1. Create a new Azure Function `CalculateHighScoreFunction` that is triggered by a message in the `gamescorequeue`. The message will contain the `GameScoreReceivedEvent` object used in the previous exercise. Also, the method signature for `Run` should perform input and output binding to a `TableClient` to read from and write to the storage table `HighScores`.
 
-    > 📝 __Tip__ - Make sure to import the proper namespace for the `CloudTable` type. It should be `Microsoft.Azure.Cosmos.Table` for the latest Azure Storage SDK.
+    > 📝 __Tip__ - Make sure to import the proper namespace for the `TableClient` type. It should be `Azure.Data.Tables` for the latest Azure Storage SDK.
 
 2. Create a class to represent a high score:
 
     ```c#
-    public class HighScoreEntry : TableEntity
+    public class HighScoreEntry : ITableEntity
     {
         public int Points { get; set; }
+
+        public string PartitionKey { get; set; }
+    
+        public string RowKey { get; set; }
+        
+        public DateTimeOffset? Timestamp { get; set; }
+    
+        public ETag ETag { get; set; }
     }
     ```
 
-    > 🔎 **Observation** - As you can see there is only one property needed. The `PartitionKey` is used for the game name and the `RowKey` is for the player nickname.
+    > 🔎 **Observation** - As you can see there is only one property needed, the Points. The `PartitionKey` is used for the game name and the `RowKey` is for the player nickname. The `Timestamp` and `ETag` properties are used by the storage table to keep track of changes.
 
 3. Implement the function to query the table for an existing high score entry.
 Here are some useful fragments to help you out.
 
     ```C#
-    TableOperation retrieve = TableOperation.Retrieve<HighScoreEntry>(message.Score.Game.ToLower(), message.Score.Nickname);
-    TableResult result = await table.ExecuteAsync(retrieve);
+try
+{
+    var result = await table.GetEntityAsync<HighScoreEntry>(message.Score.Game.ToLower(), message.Score.Nickname);
+    entry = result.Value;
+}
+catch (RequestFailedException e) // item does not exist
+{
+    entry = new HighScoreEntry
+    { 
+        PartitionKey = message.Score.Game.ToLower(),
+        RowKey = message.Score.Nickname 
+    };
+}  
     ```
 
-4. Check whether the retrieved result contains a `HighScoreEntry` instance. Cast the value if it exists. If there was no previous score stored, create a new object `HighScoreEntry` with the `PartitionKey` and `RowKey` set to the game name and player's nickname from the event and a zero `Points` score.
+4. Check whether the retrieved result contains a `HighScoreEntry` instance by validating that you did not get a 404 result. If there was no previous score stored, create a new object `HighScoreEntry` with the `PartitionKey` and `RowKey` set to the game name and player's nickname from the event and a zero `Points` score.
+
 5. When the score from the received event is better than a previously registered score, or it is the first score for that player, we have a new high score. Update the `Points` for the `HighScoreEntry` and store it in the table `HighScores`. The following code fragment stores an entry in a storage table:
 
     ```C#
-    entry.ETag = "*";
+    entry.ETag = ETag.All;
     entry.Points = message.Score.Points;
 
-    TableOperation store = TableOperation.InsertOrReplace(entry);
-    await table.ExecuteAsync(store);
+    var store = await table.UpsertEntityAsync(entry);
     ```
 
 6. Build and run your solution and test your new function. Verify that the entries are stored in the storage table using the Azure Storage Explorer. Change the points in the game scores to see the effect in behavior of the function.
@@ -140,26 +160,23 @@ In this exercise you will create a REST Web API by building a third Azure Functi
     > 📝 __Tip__ - Remember that for HTTP triggers you can include the names of placeholders in routes as arguments to your `Run` method, so you can easily use the value.
 
 2. Check the query string value for `top` of the HTTP request that triggered your function. It is optional and, if present, contains the number of entries that should be returned for the high score list. It should not exceed 20 and be 10 by default.
-3. Add an input binding argument `table` for the storage table to the signature of the `Run` method. Query the `HighScores` table using this `CloudTable` reference.
+3. Add an input binding argument `table` for the storage table to the signature of the `Run` method. Query the `HighScores` table using this `TableClient` reference.
 
     ```C#
-    var query = new TableQuery<HighScoreEntry>().Where(
-      TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, game));
-
-    var result = table.ExecuteQuery<HighScoreEntry>(query);
+    Pageable<HighScoreEntry> queryResults = table.Query<HighScoreEntry>(x=>x.PartitionKey == game, top );   
     ```
 
 4. Return an `OkObjectResult` that holds a projected array of anonymous typed objects for the nickname and points for each player in the high score list. The anonymous type should be like this:
 
     ```C#
-    new
-    {
-        Nickname = e.RowKey,
-        Points = e.Points
-    }));
+    return new OkObjectResult(queryResults.Take(top).Select(e => new
+            {
+                Nickname = e.RowKey,
+                Points = e.Points
+            }));
     ```
 
-5. Build, run and test your new Azure Function. Make an HTTP GET request to `http://localhost:7071/api/highscore/pacman` or any of the other game names you might have used. Fix any errors if needed.
+5. Build, run (`func host start`) and test your new Azure Function. Make an HTTP GET request to `http://localhost:7071/api/highscore/pacman` or any of the other game names you might have used. Fix any errors if needed.
 6. Copy the entire project `RetroGamingWebsite` from the [source code](../src/assignment/RetroGamingWebsite) to the root of your solution. Inspect the `wwwroot` folder and the `index.html` file in particular. It is a single HTML file that uses Vue.js to build a user interface with the high score list. Find the JavaScript code that calls the Web API you build in the previous steps of this exercise.
 7. Start both the Azure Function project and the new Web API project. In Visual Studio you can do this using multiple startup projects. Navigate to the `/index.html` page to verify a working website consuming your Web API.
 If it is not working, CORS settings of your HTTP trigger function might be the culprit. Change the `local.settings.json` file to include a new root level section for `Host`, like so:

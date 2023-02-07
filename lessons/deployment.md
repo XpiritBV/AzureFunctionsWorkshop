@@ -55,7 +55,7 @@ Once logged in proceed with the following commands:
 
     `az group create --name $rgname --location $location --tags type=labs`
 
-4. Create a Storage Account
+4. Create a Storage Account (make sure to use a unique name)
 
     `$stname="gamehighscorest"`
 
@@ -69,13 +69,16 @@ Once logged in proceed with the following commands:
 
     `az monitor app-insights component create --app $ainame --location $location --application-type web --kind web --resource-group $rgname`
 
-6. Create the Function App
+6. Create the Function App (you will need a unique name for the Function App)
 
     `$funcAppName="game-highscore-fa"`
 
-    `az functionapp create --name $funcAppName --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Windows`
+    `az functionapp create --name $funcAppName --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --functions-version 4 --os-type Windows`
 
     > ❔ __Question__ - Inspect the above CLI command. What can you tell about the configuration of the Function App?
+
+> 📝 __Tip__ - Make sure to clean up the deployed resources by calling `az group delete --name $rgname` when you're done with this lesson.
+  
 
 ## 3. Publishing the Solution
 

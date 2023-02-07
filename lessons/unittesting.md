@@ -96,7 +96,7 @@ This optional exercise will give you some practice to write unit tests for more 
     ILogger log;
     Mock<IAsyncCollector<SignalRMessage>> collectorMock;
     IAsyncCollector<SignalRMessage> messages;
-    Mock<CloudTable> tableMock;
+    Mock<TableClient> tableMock;
     ```
 
 3. Add a `TestInitialize` method to initialize the mock objects and test objects for each individual test execution:
@@ -107,30 +107,31 @@ This optional exercise will give you some practice to write unit tests for more 
     log = new Mock<ILogger>().Object;
     collectorMock = new Mock<IAsyncCollector<SignalRMessage>>();
     messages = collectorMock.Object;
-    Uri uri = new UriBuilder(Uri.UriSchemeHttp, "accountname.localhost", 80).Uri;
-    tableMock = new Mock<CloudTable>(uri, null);
+    tableMock = new Mock<TableClient>();
     ```
-    Notice how the URI for the `CloudTable` uses a specific naming scheme to include a storage name as the first part of the hostname)
 
-4. Go to the first unit test method and include the setup of the `CloudTable` mock to return an empty result for the query:
+4. Go to the first unit test method and include the setup of the `TableClient` mock to return an empty result for the query:
 
     ```c#
     // Arrange
-    tableMock.Setup(t => t.ExecuteAsync(It.IsAny<TableOperation>())).ReturnsAsync(new TableResult() { Result = null });
+    var response = new Mock<Response<HighScoreEntry>>();
+    tableMock.Setup(_ => _.GetEntityAsync<HighScoreEntry>(It.IsAny<string>(),It.IsAny<string>(),default, default))
+                .ReturnsAsync(response.Object);
     ```
 5. Exercise the `Run` method
 6. Write assertions for the table and collector mock objects:
-    - The `CloudTable` mock should have been called exactly twice: once to execute a table operation, and again to insert or update a `HighScoreEntry` object.
+    - The `TableClient` mock should have been called twice: to read the entity and to insert or update a `HighScoreEntry` object.
     - The `IAsyncCollector<SignalRMessage>` mock should be called once.
 
-7. Implement the second unit test for this class as well to test the case when there is no new high score. The table mock should be arranged to return a `HighScoreEntry` object on a call to `ExecuteAsync`:
+7. Implement the second unit test for this class as well to test the case when there is no new high score. The table mock should be arranged to return a `HighScoreEntry` object on a call to `GetEntityAsync`:
 
     ```c#
     // Arrange
-    tableMock.Setup(t => t.ExecuteAsync(It.IsAny<TableOperation>())).ReturnsAsync(
-        new TableResult() {
-            Result = new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname, Points = score.Points + 1 }
-        });
+    var response = new Mock<Response<HighScoreEntry>>();
+    response.SetupGet(a=>a.Value).Returns(new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname, Points = score.Points + 1 });
+    tableMock.Setup(_ => _.GetEntityAsync<HighScoreEntry>(It.IsAny<string>(),It.IsAny<string>(),default, default))
+        .ReturnsAsync(response.Object);
+            
     ```
 
 8. Make the following assertions:

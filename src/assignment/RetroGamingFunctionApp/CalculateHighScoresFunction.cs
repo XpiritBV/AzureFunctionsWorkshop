@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Azure.Cosmos.Table;
+using Azure;
+using Azure.Data.Tables;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.SignalRService;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using RetroGamingFunctionApp.Models;
 
@@ -14,36 +12,44 @@ namespace RetroGamingFunctionApp
     {
         [FunctionName("CalculateHighScoreFunction")]
         public static async Task Run([QueueTrigger("gamescorequeue")]GameScoreReceivedEvent message,
-            [Table("HighScores")] CloudTable table,
-            [SignalR(HubName = "leaderboardhub")] IAsyncCollector<SignalRMessage> signalRMessages,
+            [Table("HighScores")] TableClient table,
+            /*[SignalR(HubName = "leaderboardhub")] IAsyncCollector<SignalRMessage> signalRMessages,*/
             ILogger log)
         {
             log.LogInformation($"C# Queue trigger function processed: {message.Id}");
-
-            TableOperation retrieve = TableOperation.Retrieve<HighScoreEntry>(message.Score.Game.ToLower(), message.Score.Nickname);
-            TableResult result = await table.ExecuteAsync(retrieve);
-
-            HighScoreEntry entry = (HighScoreEntry)result.Result ?? new HighScoreEntry() 
+      
+            HighScoreEntry entry;
+            
+            try
+            {
+                var result = await table.GetEntityAsync<HighScoreEntry>(message.Score.Game.ToLower(), message.Score.Nickname);
+                entry = result.Value;
+            }
+            catch (RequestFailedException e) // item does not exist
+            {
+                entry = new HighScoreEntry
                 { 
                     PartitionKey = message.Score.Game.ToLower(),
                     RowKey = message.Score.Nickname 
                 };
+            }
 
             if (entry.Points < message.Score.Points)
             {
                 log.LogInformation(entry.Points.ToString());
-                entry.ETag = "*";
+                entry.ETag = ETag.All;
                 entry.Points = message.Score.Points;
 
-                TableOperation store = TableOperation.InsertOrReplace(entry);
-                await table.ExecuteAsync(store);
-
-                await signalRMessages.AddAsync(new SignalRMessage()
+                var store = await table.UpsertEntityAsync(entry);
+             
+                /*
+                 await signalRMessages.AddAsync(new SignalRMessage()
                 {
                     Target = "leaderboardUpdated",
                     Arguments = new string[] { }, 
                 });
                 await signalRMessages.FlushAsync();
+                */
             }
         }
     }

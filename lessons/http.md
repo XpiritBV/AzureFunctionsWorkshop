@@ -28,7 +28,7 @@ In this exercise, you'll be creating a Function App with the default HTTPTrigger
 
     > 📝 __Tip__ - Create a folder with a descriptive name since that will be used as the name for the project.
 
-3. Select the language you'll be using to code the function, in this lesson we'll be using `C#`.
+3. Select the language you'll be using to code the function, in this lesson we'll be using `C#`. When asked for a runtime, select `.NET 6.0 LTS'.
 4. Select `HTTPTrigger` as the template.
 5. Give the function a name (e.g. `HelloWorldHttpTrigger`).
 6. Enter a namespace for the function (e.g. `AzureFunctions.Demo`).
@@ -44,9 +44,9 @@ In this exercise, you'll be creating a Function App with the default HTTPTrigger
     |local.settings.json|Contains [app settings and connectionstrings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json) for local development.
 
     > ❔ __Question__ - Review the generated HTTPTrigger function. What is it doing?
-8. Build the project (CTRL+SHIFT+B).
+8. Build the project in a terminal by executing `dotnet build` in the just created folder and validate that it compiles without errors.
 
-9. Start the Function App by pressing `F5`.
+9. Start the Function App by running `func host start`. If the default port (7071) is in use, you can specify a different port by running `func host start --port 7072`.
     > 🔎 __Observation__ - Eventually you should see an HTTP endpoint in the output.
 10. Now call the function by making a GET request to the above endpoint using a REST client:
 

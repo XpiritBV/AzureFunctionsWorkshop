@@ -1,20 +1,18 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Cosmos.Table;
-using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Newtonsoft.Json;
 using RetroGamingFunctionApp.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
+using Azure;
+using Azure.Data.Tables;
 
 namespace RetroGamingFunctionApp.Tests
 {
@@ -31,15 +29,18 @@ namespace RetroGamingFunctionApp.Tests
             // Arrange
             GameScore score = new GameScore() { Game = "Pacman", Nickname = "LX", Points = 1337 };
             ILogger log = new Mock<ILogger>().Object;
-            var request = new Mock<HttpRequest>();
-            Uri uri = new UriBuilder(Uri.UriSchemeHttp, "accountname.localhost", 80).Uri;
-            var tableMock = new Mock<CloudTable>(uri, null);
-            tableMock.Setup(t => t.ExecuteQuery<HighScoreEntry>(It.IsAny<TableQuery<HighScoreEntry>>(), It.IsAny<TableRequestOptions>(), It.IsAny<OperationContext>())).Returns(
-                new List<HighScoreEntry> {
-                    new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname + "1", Points = score.Points + 1 },
-                    new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname + "2", Points = score.Points + 2 },
-                    new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname + "3", Points = score.Points + 3 }
-                });
+            var request = new Mock<HttpRequest>(); 
+            var tableMock = new Mock<TableClient>();
+
+            var page1 = Page<HighScoreEntry>.FromValues(new[] {      
+                new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname + "1", Points = score.Points + 1 },
+                new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname + "2", Points = score.Points + 2 },
+                new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname + "3", Points = score.Points + 3 }
+            }, "continuationToken", Mock.Of<Response>());
+            
+            tableMock.Setup(t => t.Query<HighScoreEntry>(It.IsAny<Expression<Func<HighScoreEntry, bool>>>(),
+                    It.IsAny<int?>(), default, default))
+                .Returns(Pageable<HighScoreEntry>.FromPages(new[] { page1 }));
 
             // HTTP request setup
             request.Setup(req => req.Method).Returns("GET");

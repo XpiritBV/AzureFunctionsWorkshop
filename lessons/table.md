@@ -258,9 +258,9 @@ In this exercise we'll be using a `TableEntity` type as the table input binding 
 
    > ❔ __Question__ - Did the function return with a 200 OK, including the player data?
 
-## 5. Using a `CloudTable` Table input binding
+## 5. Using a `TableClient` Table input binding
 
-In this exercise we'll be using a `CloudTable` type as the table input binding, and use a `TableQuery` to retrieve multiple `PlayerEntity` objects from the `players`table and return it in the HTTP response.
+In this exercise we'll be using a `TableClient` type as the table input binding, and retrieve multiple `PlayerEntity` objects from the `players`table and return it in the HTTP response.
 
 ### Steps
 
@@ -278,31 +278,21 @@ In this exercise we'll be using a `CloudTable` type as the table input binding, 
 4. Update the table input binding to it only uses the table name:
 
    ```csharp
-   [Table(TableConfig.Table)] CloudTable cloudTable
+   [Table(TableConfig.Table)] TableClient cloudTable
    ```
 
-   > 🔎 __Observation__ Note that we're using the CloudTable type, ensure that this type comes from the `Microsoft.Azure.Cosmos.Table` namespace. This type refers to a Table in either a Storage Account, or in CosmosDB.
+   > 🔎 __Observation__ Note that we're using the TableClient type, ensure that this type comes from the `Microsoft.Azure.Cosmos.Table` namespace. This type refers to a Table in either a Storage Account, or in CosmosDB.
 
 5. Replace the contents of the functions method with this:
 
    ```csharp
    string region = request.Query["region"];
-   var regionFilter = new TableQuery<PlayerEntity>()
-       .Where(
-           TableQuery.GenerateFilterCondition(
-               "PartitionKey",
-               QueryComparisons.Equal,
-               region));
-   var playerEntities = cloudTable.ExecuteQuery<PlayerEntity>(regionFilter);
+   var playerEntities  = cloudTable.QueryAsync<PlayerEntity>(a=>a.PartitionKey == region);
 
    return new OkObjectResult(playerEntities);
    ```
 
    > 🔎 __Observation__ The region is extracted from the query string. The region is also the `PartitionKey` and will be used to query the `PlayerEntity` objects within the region.
-
-   > 🔎 __Observation__ The query (or filter) is made via a special `TableQuery<T>` type and contains a where clause which specifies the condition records should match. The query is then passed to the `ExecuteQuery<T>()` method of the `CloudTable` and results in a collection of `PlayerEntity` objects.
-
-   > 📝 __Tip__ - Look into the [TableQuery object definition](https://docs.microsoft.com/en-us/dotnet/api/microsoft.azure.cosmos.table.tablequery?view=azure-dotnet) and check what kind of methods it supports.
 
 6. Make sure the storage emulator is running, then build & run the `AzureFunctions.Table` Function App.
 

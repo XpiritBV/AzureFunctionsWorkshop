@@ -6,13 +6,19 @@ In order to complete the the lessons you need to install the following:
 
 |Prerequisite|Description
 |-|-
-|[.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core)|The .NET runtime and SDK.
+|[.NET Core 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)|The .NET runtime and SDK. 
 |[VSCode](https://code.visualstudio.com/Download) or [VS2019](https://visualstudio.microsoft.com/vs/)|VSCode is great for cross platform. VS2019 is best for Windows only.
 |[VSCode AzureFunctions extension](https://github.com/Microsoft/vscode-azurefunctions)|Extension for VSCode to easily develop and manage Azure Functions.
 |[Azure Functions Core Tools](https://github.com/Azure/azure-functions-core-tools)|Azure Functions runtime and CLI for local development.
 |[RESTClient for VSCode](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) or [Postman](https://www.postman.com/)|An extension or  application to make HTTP requests.
 |[Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/)|Application to manage Azure Storage resources (both in the cloud and local emulated).
 |[Azure Storage Emulator](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator) (Windows only) or [Azurite](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite)|Emulator for using Azure Storage services if you want to develop locally without connecting to a Storage Account in the cloud. If you can't use an emulator you need an [Azure Storage Account](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal).
+
+### Azure 
+
+- For the second part of the workshop, you will need an Azure subscription. If you don't have an Azure Subscription, install [Azurite](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio#install-and-run-azurite).
+Get your free Azure subscription [here](https://azure.microsoft.com/en-us/free). You will need a credit card, but it won't be charged, provided you clean up all resources after completing this lab. If you have a MSDN account, you most likely have Azure Credits as well. 
+
 
 ## Cloning the workshop lab files
 
@@ -32,16 +38,16 @@ The files inside this repository contain everything you need to continue with th
 
 ## Creating your local workspace 👩‍💻
 
-We suggest you create a new folder dedicated to your own work, at a convenient location such as `VirtCon2020Workshop`.
+We suggest you create a new folder dedicated to your own work, at a convenient location such as `workshop`.
 
 - Inside your sources folder from the previous step, create a new folder to add your workshop files to:
 
     ```cmd
-    mkdir VirtCon2020Workshop
-    cd .\VirtCon2020Workshop
+    mkdir workshop
+    cd .\workshop
     ```
 
-- Turn the `VirtCon2020Workshop` folder into a git repository:
+- Turn the `workshop` folder into a git repository:
 
     ```cmd
     git init
