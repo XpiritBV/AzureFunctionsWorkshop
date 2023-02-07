@@ -63,4 +63,4 @@ We suggest you create a new folder dedicated to your own work, at a convenient l
 You should be good to go now!
 
 ---
-[◀ back to README](README.md)
+[◀ back to README](../README.md)
