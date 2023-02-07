@@ -22,6 +22,8 @@ From within the repository, click on the `Code` button and select `Open with Cod
 
 Be sure to stop the Codespace when you are done, to avoid unnecessary costs.
 
+> Note: when you are using a codespace, Azurite is running along the dotnet image. You will need to use a different connection string in this case: `DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;QueueEndpoint=http://azurite:10001/devstoreaccount1;TableEndpoint=http://azurite:10002/devstoreaccount1;`
+
 ## Azure 
 
 For the second part of the workshop, you will need an Azure subscription. If you don't have an Azure Subscription, install [Azurite](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio#install-and-run-azurite).
