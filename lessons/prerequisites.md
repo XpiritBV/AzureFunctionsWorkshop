@@ -14,9 +14,17 @@ In order to complete the the lessons you need to install the following:
 |[Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/)|Application to manage Azure Storage resources (both in the cloud and local emulated).
 |[Azure Storage Emulator](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator) (Windows only) or [Azurite](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite)|Emulator for using Azure Storage services if you want to develop locally without connecting to a Storage Account in the cloud. If you can't use an emulator you need an [Azure Storage Account](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal).
 
-### Azure 
+## Codespaces
 
-- For the second part of the workshop, you will need an Azure subscription. If you don't have an Azure Subscription, install [Azurite](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio#install-and-run-azurite).
+Alternatively; you can use GitHub CodeSpaces, a feature from GitHub, which provides you with a cloud based development environment. This is a great way to get started with Azure Functions, without having to install anything on your local machine. You do need a GitHub account for this, but you can use a free account. 
+
+From within the repository, click on the `Code` button and select `Open with Codespaces`. This will spin up a new environment for you, and you can start working on the workshop when it has finished provisioning.
+
+Be sure to stop the Codespace when you are done, to avoid unnecessary costs.
+
+## Azure 
+
+For the second part of the workshop, you will need an Azure subscription. If you don't have an Azure Subscription, install [Azurite](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio#install-and-run-azurite).
 Get your free Azure subscription [here](https://azure.microsoft.com/en-us/free). You will need a credit card, but it won't be charged, provided you clean up all resources after completing this lab. If you have a MSDN account, you most likely have Azure Credits as well. 
 
 
