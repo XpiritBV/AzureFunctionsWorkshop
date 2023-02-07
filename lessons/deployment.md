@@ -73,9 +73,12 @@ Once logged in proceed with the following commands:
 
     `$funcAppName="game-highscore-fa"`
 
-    `az functionapp create --name $funcAppName --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --os-type Windows`
+    `az functionapp create --name $funcAppName --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --functions-version 4 --os-type Windows`
 
     > ❔ __Question__ - Inspect the above CLI command. What can you tell about the configuration of the Function App?
+
+> 📝 __Tip__ - Make sure to clean up the deployed resources by calling `az group delete --name $rgname` when you're done with this lesson.
+  
 
 ## 3. Publishing the Solution
 
