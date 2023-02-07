@@ -18,7 +18,7 @@ In the workshop, you will learn how to create an Azure Function app, that uses a
 - [Lesson 2 - Creating a HTTP trigger](/lessons/http.md) - Create a simple HTTP trigger function. 
 - [Lesson 3 - Queue Trigger & Binding](/lessons/queue.md) - Setup a queue trigger and binding to a function. 
 - [Lesson 4 - Table Bindings](/lessons/table.md) - React on table changes by using table bindings and store results in a table. 
-- [Lesson 5 - Assignment](/lessons/assignment.md) - 
-- [Lesson 6 - Unit testing](/lessons/unittesting.md) - 
-- [Lesson 7 - Run in the Cloud](/lessons/deployment.md) - 
+- [Lesson 5 - Assignment](/lessons/assignment.md) - Combine all the lessons into a single application.
+- [Lesson 6 - Unit testing](/lessons/unittesting.md) - Add unit tests to your functions.
+- [Lesson 7 - Run in the Cloud](/lessons/deployment.md) - Deploy your application to Azure.
 

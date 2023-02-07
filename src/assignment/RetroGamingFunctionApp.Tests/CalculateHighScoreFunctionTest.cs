@@ -34,7 +34,6 @@ namespace RetroGamingFunctionApp.Tests
             log = new Mock<ILogger>().Object;
             collectorMock = new Mock<IAsyncCollector<SignalRMessage>>();
             messages = collectorMock.Object;
-            Uri uri = new UriBuilder(Uri.UriSchemeHttp, "accountname.localhost", 80).Uri;
             tableMock = new Mock<TableClient>();
         }
 
@@ -47,11 +46,14 @@ namespace RetroGamingFunctionApp.Tests
                 .ReturnsAsync(response.Object);
 
             // Act
-            await CalculateHighScoreFunction.Run(receivedEvent, tableMock.Object, messages, log);
+            await CalculateHighScoreFunction.Run(receivedEvent, tableMock.Object, /*messages,*/ log);
             
             // Assert
+            tableMock.Verify(m => m.GetEntityAsync<HighScoreEntry>(It.IsAny<string>(), It.IsAny<string>(), default, default), Times.Exactly(1));
             tableMock.Verify(m => m.UpsertEntityAsync(It.IsAny<HighScoreEntry>(), TableUpdateMode.Merge, default), Times.Exactly(1));
-            collectorMock.Verify(m => m.AddAsync(It.IsAny<SignalRMessage>(), CancellationToken.None), Times.Once);
+            
+            // When signalr is enabled, this test case can be added
+            // collectorMock.Verify(m => m.AddAsync(It.IsAny<SignalRMessage>(), CancellationToken.None), Times.Once);
         }
 
         [TestMethod]
@@ -59,19 +61,18 @@ namespace RetroGamingFunctionApp.Tests
         {
             // Arrange
             var response = new Mock<Response<HighScoreEntry>>();
-            response.SetupGet(a=>a.Value).Returns(new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname, Points = score.Points + 1 }
-        
-        );
+            response.SetupGet(a=>a.Value).Returns(new HighScoreEntry { PartitionKey = score.Game, RowKey = score.Nickname, Points = score.Points + 1 });
             tableMock.Setup(_ => _.GetEntityAsync<HighScoreEntry>(It.IsAny<string>(),It.IsAny<string>(),default, default))
                 .ReturnsAsync(response.Object);
             
-
             // Act
-            await CalculateHighScoreFunction.Run(receivedEvent, tableMock.Object, messages, log);
+            await CalculateHighScoreFunction.Run(receivedEvent, tableMock.Object, /*messages,*/ log);
 
             // Assert
             tableMock.Verify(m => m.UpsertEntityAsync(It.IsAny<HighScoreEntry>(),TableUpdateMode.Merge, default), Times.Exactly(0));
-            collectorMock.Verify(m => m.AddAsync(It.IsAny<SignalRMessage>(), CancellationToken.None), Times.Never);
+            
+            // When signalr is enabled, this test case can be added
+            //collectorMock.Verify(m => m.AddAsync(It.IsAny<SignalRMessage>(), CancellationToken.None), Times.Never);
         }
     }
 }
