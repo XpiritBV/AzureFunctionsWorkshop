@@ -24,7 +24,6 @@
 	"remoteUser": "vscode",
 	"features": {
 		"ghcr.io/devcontainers/features/azure-cli:1": {},
-		"ghcr.io/devcontainers/features/powershell:1": {},
-		"ghcr.io/jlaundry/devcontainer-features/azure-functions-core-tools:1": {}
+		"ghcr.io/devcontainers/features/powershell:1": {}
 	}
 }
