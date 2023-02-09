@@ -78,3 +78,17 @@ ___
 ![width:75% height:500](assets/functionmodel.png)
 
 ---
+## Triggers provide metadata
+
+
+```csharp
+[FunctionName("ValidateBlobSize")]
+public static void Run(
+  [QueueTrigger("ImagesInput",  Connection = "…")] string blobNameInMessage,
+  int dequeueCount,
+  [Blob("images/{queueTrigger}", FileAccess.Read, 
+  Connection = "…")] Stream blob,
+  TraceWriter log) { // Your function code …
+}
+```
+---
