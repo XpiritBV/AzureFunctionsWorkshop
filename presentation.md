@@ -4,7 +4,6 @@ title: 'Azure Functions on Azure workshop'
 theme: gaia
 class: 
   - lead
-  - invert
 paginate: true
 keywords: Azure Functions, Azure, Workshop
 description: Azure Functions workshop
