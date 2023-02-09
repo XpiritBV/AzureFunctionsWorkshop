@@ -34,13 +34,6 @@ author: Xpirit
  * AZ CLI
 ---
 
-Browse to: https://github.com/XpiritBV/AzureFunctionsWorkshop​
-​
-git clone https://github.com/XpiritBV/AzureFunctionsWorkshop.git ​
-
-or use CodeSpaces  
-
----
 <!-- class: lead  -->
 ## Transitioning to server-less
 
@@ -91,4 +84,14 @@ public static void Run(
   TraceWriter log) { // Your function code …
 }
 ```
+---
+
+Browse to: https://github.com/XpiritBV/AzureFunctionsWorkshop​
+​
+```bash
+git clone https://github.com/XpiritBV/AzureFunctionsWorkshop.git
+```
+
+or use CodeSpaces  
+
 ---
