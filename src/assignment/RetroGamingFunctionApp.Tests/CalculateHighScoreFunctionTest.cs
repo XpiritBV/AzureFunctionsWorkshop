@@ -41,9 +41,9 @@ namespace RetroGamingFunctionApp.Tests
         public async Task NewHighScoreShouldStoreResultAndSendSignalRMessage()
         {
             // Arrange
-            var response = new Mock<Response<HighScoreEntry>>();
-            tableMock.Setup(_ => _.GetEntityAsync<HighScoreEntry>(It.IsAny<string>(),It.IsAny<string>(),default, default))
-                .ReturnsAsync(response.Object);
+            tableMock.Setup(_ =>
+                    _.GetEntityAsync<HighScoreEntry>(It.IsAny<string>(), It.IsAny<string>(), default, default))
+                .ThrowsAsync(new RequestFailedException(404, "Not found"));
 
             // Act
             await CalculateHighScoreFunction.Run(receivedEvent, tableMock.Object, /*messages,*/ log);

@@ -25,7 +25,7 @@ namespace RetroGamingFunctionApp
                 var result = await table.GetEntityAsync<HighScoreEntry>(message.Score.Game.ToLower(), message.Score.Nickname);
                 entry = result.Value;
             }
-            catch (RequestFailedException e) // item does not exist
+            catch (RequestFailedException) // item does not exist
             {
                 entry = new HighScoreEntry
                 { 
