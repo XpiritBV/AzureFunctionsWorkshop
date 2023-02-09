@@ -4,6 +4,7 @@ title: 'Azure Functions on Azure workshop'
 theme: gaia
 class: 
   - lead
+  - invert
 paginate: true
 keywords: Azure Functions, Azure, Workshop
 description: Azure Functions workshop
@@ -23,6 +24,15 @@ author: Xpirit
  * Lab 4 – Deploying to Azure
 
 ---
+## Showcasing the following features:
+
+ * HTTP Triggers​
+ * Queues​
+ * SignalR Service​
+ * Table storage
+ * Azure
+ * AZ CLI
+---
 
 Browse to: https://github.com/XpiritBV/AzureFunctionsWorkshop​
 ​
@@ -31,13 +41,14 @@ git clone https://github.com/XpiritBV/AzureFunctionsWorkshop.git ​
 or use CodeSpaces  
 
 ---
-
+<!-- class: lead  -->
 ## Transitioning to server-less
 
 ![bg](assets/emptydc.png)
 ### There are no servers…​ When you do not need them
 
 ___
+<!-- class: lead invert -->
 
 ## Functions as a Service (FaaS)​
 
