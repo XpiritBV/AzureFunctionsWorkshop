@@ -37,7 +37,6 @@ jobs:
 
       - name: Build Marp slide deck
         run: CHROME_PATH=$(node -e "console.log(require('puppeteer').executablePath())") npm run build
-        working-directory: ./presentation
         env:
           # Please update URL if you want to use custom domain
           URL: https://${{ github.event.repository.owner.name }}.github.io/${{ github.event.repository.name }}
