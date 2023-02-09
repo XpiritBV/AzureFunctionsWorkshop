@@ -78,7 +78,8 @@ Once logged in proceed with the following commands:
     > ❔ __Question__ - Inspect the above CLI command. What can you tell about the configuration of the Function App?
 
 > 📝 __Tip__ - Make sure to clean up the deployed resources by calling `az group delete --name $rgname` when you're done with this lesson.
-  
+
+> 📝 __Tip__ - You can also use the file `src/assignment/deployment.ps1` to create the resources.  
 
 ## 3. Publishing the Solution
 
