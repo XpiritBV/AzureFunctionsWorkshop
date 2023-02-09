@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build": "rimraf public && npm run -s og-image && npm run -s deck",
-    "deck": "marp --no-stdin PITCHME.md -o public/index.html && ncp assets public/assets",
-    "og-image": "marp --no-stdin PITCHME.md -o public/og-image.jpg",
+    "deck": "marp --no-stdin workshop.md -o public/index.html && ncp assets public/assets",
+    "og-image": "marp --no-stdin workshop.md -o public/og-image.jpg",
     "start": "marp -ps .",
     "vercel-build": "npm i puppeteer --no-save && MARP_USER=root CHROME_PATH=$(node -e \"console.log(require('puppeteer').executablePath())\") npm run build"
   },
