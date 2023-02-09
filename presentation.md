@@ -2,7 +2,7 @@
 marp: true
 title: 'Azure Functions on Azure workshop'
 theme: gaia
-class:
+class: 
   - lead
   - invert
 paginate: true
@@ -14,10 +14,9 @@ author: Xpirit
 # <!--fit--> Workshop: Serverless .NET Core Solutions using Azure Functions
 
 
-
 ---
 
-# Hands-on labs for Azure Functions
+## Hands-on labs for Azure Functions
 
  * Lab 1 - Azure Functions 101​
  * Lab 2 – Build an end-to-end solution​
@@ -34,26 +33,24 @@ or use CodeSpaces
 
 ---
 
+## Transitioning to server-less
 
-
-# Transitioning to server-less
-
-## There are no servers…​ When you do not need them
+### There are no servers…​ When you do not need them
 
 ___
 
-# Functions as a Service (FaaS)​
+## Functions as a Service (FaaS)​
 
-## Small pieces of self-contained server-side logic​
+### Small pieces of self-contained server-side logic​
 
-- __Event-driven__​  Responds to external triggers​
-- __Instant scaling__ ​ Abstraction of server infrastructure​, Scales when needed
-- __Pay by consumption__​ Charged by GB-s and # of executions​
+- **Event-driven**​  Responds to external triggers​
+- **Instant scaling** ​ Abstraction of server infrastructure​, Scales when needed
+- **Pay by consumption**​ Charged by GB-s and # of executions​
 
 ---
-![bg right](assets/functionapp.png)
+![bg right 100%](assets/functionapp.png)
 
-# Anatonomy of an Azure Function App
+## Anatonomy of an Azure Function App
 
 - Hosted as Azure App Service​
 - JSON based configuration​
@@ -65,8 +62,8 @@ Bindings for ​input and output​
 
 
 ___
-# Programming model: It’s a function​
+## Programming model: It’s a function​
 
-![image](assets/functionmodel.png)
+![width:75% height:500](assets/functionmodel.png)
 
 ---
