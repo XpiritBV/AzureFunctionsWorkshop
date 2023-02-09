@@ -35,6 +35,7 @@ or use CodeSpaces
 
 ## Transitioning to server-less
 
+![bg](assets/emptydc.png)
 ### There are no servers…​ When you do not need them
 
 ___
