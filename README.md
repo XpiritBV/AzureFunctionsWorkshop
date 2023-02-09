@@ -22,3 +22,15 @@ In the workshop, you will learn how to create an Azure Function app, that uses a
 - [Lesson 6 - Unit testing](/lessons/unittesting.md) - Add unit tests to your functions.
 - [Lesson 7 - Run in the Cloud](/lessons/deployment.md) - Deploy your application to Azure.
 
+## Get started
+
+Clone this repository to your local machine:
+    ```cmd
+    git clone https://github.com/XpiritBV/AzureFunctionsWorkshop.git
+    ```
+
+Or click on the below button:
+
+[![](https://img.shields.io/badge/-Use%20this%20template-brightgreen?style=for-the-badge&logo=github)](https://github.com/xpiritbv/azurefunctionsworkshop/generate)
+
+To start the presentation; run `npm i` and `npm run start` and open the `presentation/workshop` file.
