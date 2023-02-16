@@ -18,20 +18,21 @@ author: Xpirit
 
 ## Hands-on labs for Azure Functions
 
- * Lab 1 - Azure Functions 101​
- * Lab 2 – Build an end-to-end solution​
- * Lab 3 – Unit testing your functions ​
- * Lab 4 – Deploying to Azure
+ * Prequisites and setup
+ * Lab 2..4  - Azure Functions 101​
+ * **Lab 5 – Build an end-to-end solution​**
+ * Lab 6 – Unit testing your functions ​
+ * **Lab 7 – Deploying to Azure**
 
 ---
 ## Showcasing the following features:
 
  * HTTP Triggers​
  * Queues​
- * SignalR Service​
  * Table storage
  * Azure
- * AZ CLI
+ * AZ CLI / Func CLI
+ * (SignalR Service​)
 ---
 
 <!-- class: lead  -->
@@ -48,7 +49,7 @@ ___
 ### Small pieces of self-contained server-side logic​
 
 - **Event-driven**​  Responds to external triggers​
-- **Instant scaling** ​ Abstraction of server infrastructure​, Scales when needed
+- **Instant scaling** ​ Abstraction of server infrastructure​, scales when needed
 - **Pay by consumption**​ Charged by GB-s and # of executions​
 
 ---

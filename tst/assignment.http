@@ -14,3 +14,20 @@ Content-Type: application/json
     "Game" : "Pacman"
     }
 ]
+
+###
+POST https://game-highscore-fa.azurewebsites.net/api/receivegamescoresfunction?code=...
+Content-Type: application/json
+
+[
+    {
+    "Nickname" : "John Doe",
+    "Points" : 44,
+    "Game" : "Pacman"
+    },
+    {
+    "Nickname" : "Jane Doe",
+    "Points" : 1337,
+    "Game" : "Pacman"
+    }
+]

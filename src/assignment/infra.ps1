@@ -17,5 +17,4 @@ $funcAppName="game-highscore-fa"
 
 az functionapp create --name $funcAppName --resource-group $rgname --consumption-plan-location $location --storage-account $stname --app-insights $ainame --runtime dotnet --functions-version 4 --os-type Windows
 
-# to remove, run the following line
-# az group delete --name $rgname --yes
+# to remove, run the clean.ps1 file

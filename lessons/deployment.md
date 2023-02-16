@@ -79,7 +79,7 @@ Once logged in proceed with the following commands:
 
 > 📝 __Tip__ - Make sure to clean up the deployed resources by calling `az group delete --name $rgname` when you're done with this lesson.
 
-> 📝 __Tip__ - You can also use the file `src/assignment/deployment.ps1` to create the resources.  
+> 📝 __Tip__ - You can also use the file `src/assignment/infra.ps1` to create the resources.  
 
 ## 3. Publishing the Solution
 
@@ -104,6 +104,9 @@ Application settings in the `local.seetings.json` file are not published. Follow
 ### Option 3: Publish from Azure Functions CLI
 
 Follow these instructions: [docs.microsoft.com/en-us/azure/azure-functions/functions-run-local#publish](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local#publish)
+
+
+> 📝 __Tip__ - If you are stuck, have a look at the file `src/assignment/deploy.ps1`. The output will contain a url with a unique code as it uses the `--show-keys` option. The code is what you will need to actually call the endpoint in an authenticated manner. You can use the `tst/assignment.http` test file to send the scores.  
 
 ### Option 4: Continuous delivery with Azure DevOps
 
