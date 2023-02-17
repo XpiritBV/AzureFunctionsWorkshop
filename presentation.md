@@ -30,8 +30,9 @@ author: Xpirit
  * HTTP Triggers​
  * Queues​
  * Table storage
- * Azure
+ * Run in Azure 
  * AZ CLI / Func CLI
+ * Unit Testing
  * (SignalR Service​)
 ---
 
@@ -65,7 +66,6 @@ Trigger starts execution​
 
 Bindings for ​input and output​
 
-
 ___
 ## Programming model: It’s a function​
 
@@ -74,7 +74,6 @@ ___
 ---
 ## Triggers provide metadata
 
-
 ```csharp
 [FunctionName("ValidateBlobSize")]
 public static void Run(
@@ -82,17 +81,18 @@ public static void Run(
   int dequeueCount,
   [Blob("images/{queueTrigger}", FileAccess.Read, 
   Connection = "…")] Stream blob,
-  TraceWriter log) { // Your function code …
+  TraceWriter log) { 
+    // Your function code …
 }
 ```
 ---
 
 Browse to: https://github.com/XpiritBV/AzureFunctionsWorkshop​
-​
+
 ```bash
 git clone https://github.com/XpiritBV/AzureFunctionsWorkshop.git
 ```
 
-or use CodeSpaces  
+or use CodeSpaces for a full remote development experience
 
 ---

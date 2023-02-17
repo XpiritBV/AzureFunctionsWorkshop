@@ -33,4 +33,4 @@ Or click on the below button:
 
 [![](https://img.shields.io/badge/-Use%20this%20template-brightgreen?style=for-the-badge&logo=github)](https://github.com/xpiritbv/azurefunctionsworkshop/generate)
 
-To start the presentation; run `npm i` and `npm run start` and open the `presentation.md` file or visit the deployed presentation at [GitHub Pages](https://xpiritbv.github.io/AzureFunctionsWorkshop/)
+To start the presentation locally; run `npm i` and `npm run start` and open the `presentation.md` file. Alternatively, visit the deployed presentation at the [GitHub Pages](https://xpiritbv.github.io/AzureFunctionsWorkshop/).
