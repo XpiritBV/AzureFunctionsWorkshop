@@ -89,7 +89,7 @@ For the avoidance of doubt, this Section 6(b) does not affect any right the Lice
 For the avoidance of doubt, the Licensor may also offer the Licensed Material under separate terms or conditions or stop distributing the Licensed Material at any time; however, doing so will not terminate this Public License.
 Sections 1, 5, 6, 7, and 8 survive termination of this Public License.
 
-##cSection 7 – Other Terms and Conditions.
+## Section 7 – Other Terms and Conditions.
 
 The Licensor shall not be bound by any additional or different terms or conditions communicated by You unless expressly agreed.
 Any arrangements, understandings, or agreements regarding the Licensed Material not stated herein are separate from and independent of the terms and conditions of this Public License.
