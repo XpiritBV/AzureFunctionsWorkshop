@@ -54,6 +54,32 @@ ___
 - **Pay by consumption**​ Charged by GB-s and # of executions​
 
 ---
+# Server-less platform providers
+
+## Major cloud provider offer FaaS
+
+- Amazon Lambda​ (2014)
+- Google Cloud Functions (2016)
+- Azure Functions (2016)
+- Auth0 Webtasks​ (2016)
+---
+# Focusing on Azure Functions
+
+![width:600px](assets/functionadd.png)
+## Process events with server-less code
+
+
+---
+# About Azure Functions
+
+- Open source: https://github.com/Azure/Azure-Functions 
+- Many available languages:
+  - C, JavaScript, F#,Java, PowerShell, Python, PHP, Batch, Bash
+- Built on top of Azure WebJobs 
+- Support for multiple runtimes: 
+  - .NET Framework and .NET Core 1.0+, NodeJS, Python, PowerShell
+
+---
 ![bg right 100%](assets/functionapp.png)
 
 ## Anatonomy of an Azure Function App
