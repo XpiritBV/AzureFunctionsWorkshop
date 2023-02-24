@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-
+    paths:
+      - 'presentation.md'
   workflow_dispatch:
 
 permissions:
