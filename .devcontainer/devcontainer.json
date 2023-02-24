@@ -14,7 +14,8 @@
 				"ms-azuretools.vscode-azurefunctions",
 				"ms-dotnettools.csharp",
 				"humao.rest-client",
-				"ms-azuretools.vscode-azurestorage"
+				"ms-azuretools.vscode-azurestorage",
+				"Azurite.azurite"
 			]
 		}
 	},

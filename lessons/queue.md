@@ -30,9 +30,10 @@ In this exercise we'll look into storage emulation and the Azure Storage Explore
 
 ### Steps
 
-1. Make sure that the storage emulator is running and open the Azure Storage Explorer.
+1. Make sure that the storage emulator is running and open the Azure Storage Explorer. If you use GitHub CodeSpaces, then use the Azure extension, Workspace option.
 2. Navigate to `Storage Accounts` -> `(Emulator - Default Ports)(Key)` -> `Queues`
    ![Storage Emulator Treeview](../img/lessons/queue/StorageEmulator_queue1.png)
+   Or when using the CodeSpace, use `Workspace / Local Emulator / Queues`
 3. Right click on `Queues` and select `Create Queue`
 4. Type a name for the queue: `newplayer-items`
 5. Select the new queue.

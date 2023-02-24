@@ -25,9 +25,10 @@ In this exercise we'll look into storage emulation and the Azure Storage Explore
 
 ### Steps
 
-1. Make sure that the storage emulator is running and open the Azure Storage Explorer.
+1. Make sure that the storage emulator is running and open the Azure Storage Explorer. If you use GitHub CodeSpaces, then use the Azure extension, Workspace option.
 2. Navigate to `Storage Accounts` -> `(Emulator - Default Ports)(Key)` -> `Tables`
    ![Storage Emulator Treeview](../img/lessons/table/StorageEmulator_table1.png)
+   Or when using the CodeSpace, use `Workspace / Local Emulator / Tables`
 3. Right click on `Table` and select `Create Table`
 4. Type a name for the table: `players`
 5. Select the new table.
