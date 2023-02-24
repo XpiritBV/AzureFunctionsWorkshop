@@ -23,7 +23,7 @@ In this exercise, you'll be creating a Function App with the default HTTPTrigger
 
 ### Steps
 
-1. In VSCode, create the Function App by running `AzureFunctions: Create New Project` in the Command Palette (CTRL+SHIFT+P).
+1. In VSCode, create the Function App by running `AzureFunctions: Create New Project` in the Command Palette (<kbd>CTRL</kbd>+<kbd>SHIFT</kbd>+<kbd>P</kbd> or <kbd>F1</kbd> in CodeSpaces).
 2. Browse to the location where you want to save the function app (e.g. _AzureFunctions.Http_).
 
     > 📝 __Tip__ - Create a folder with a descriptive name since that will be used as the name for the project.

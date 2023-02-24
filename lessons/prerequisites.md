@@ -1,8 +1,14 @@
 # Prerequisites
 
+There are a couple of ways to do this training exercise; 
+
+- Install the below frameworks and tools on your own machine. This gives you the most flexibility but requires some more work to get it all working together.
+- Use a CodeSpace, which is some sort of a virtual machine in the cloud. The CodeSpace for this repository is configured to contain a storage emulator. 
+- Use CodeSpace combined with your local Visual Studio Code. If you like to use your own machine, but do not want to install all the tools, then this is a great fit. 
+
 ## Frameworks & Tooling 🧰
 
-In order to complete the the lessons you need to install the following:
+In order to complete the the lessons on your own machine, you need to install the following:
 
 |Prerequisite|Description
 |-|-
@@ -21,9 +27,13 @@ Alternatively; you can use GitHub CodeSpaces, a feature from GitHub, which provi
 
 From within the repository, click on the `Code` button and select `Open with Codespaces`. This will spin up a new environment for you, and you can start working on the workshop when it has finished provisioning.
 
-Be sure to stop the Codespace when you are done, to avoid unnecessary costs.
+Be sure to stop (and delete) the Codespace when you are done, to avoid unnecessary costs.
 
 > Note: when you are using a codespace, Azurite is running along the dotnet image. You will need to use a different connection string in this case: `DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;QueueEndpoint=http://azurite:10001/devstoreaccount1;TableEndpoint=http://azurite:10002/devstoreaccount1;`
+
+> Note: To invoke the command palette, you can use <kbd>F1</kbd> as well.
+
+> Note: Remember that you are running inside VM, it will expose a port (`7071`) to the outside world, so you get a remote url you can use. So consider what `localhost` is relative to your own machine. 
 
 ## Azure 
 

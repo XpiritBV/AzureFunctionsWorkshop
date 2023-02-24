@@ -51,11 +51,11 @@ In this exercise we'll be using a `return Table` attribute as the output binding
    4. Function name: *StorePlayerReturnAttributeTableOutput*
    5. Namespace: *AzureFunctions.Demo*  
    6. AccessRights: *Function*
-2. Once the Function App is generated, add a reference to the `Microsoft.Azure.WebJobs.Extensions.Storage` NuGet package to the project. This allows us to use bindings for Blobs, Tables and Queues.
+2. Once the Function App is generated, add a reference to the `Microsoft.Azure.WebJobs.Extensions.Tables` NuGet package to the project. This allows us to use bindings for Blobs, Tables and Queues.
 
    > 📝 **Tip** - One way to easily do this is to use the _NuGet Package Manager_ VSCode extension:
    > 1. Run `NuGet Package Manager: Add new Package` in the Command Palette (CTRL+SHIFT+P).
-   > 2. Type: `Microsoft.Azure.WebJobs.Extensions.Storage`
+   > 2. Type: `Microsoft.Azure.WebJobs.Extensions.Tables`
    > 3. Select the most recent (non-preview) version of the package.
 
 3. We'll be working with a `PlayerEntity` type in the exercises. Add a new class file to the project named `PlayerEntity.cs` and copy the contents from [this file](../src/table/Models/PlayerEntity.cs) in it.

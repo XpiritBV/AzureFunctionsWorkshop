@@ -74,8 +74,8 @@ ___
 
 - Open source: https://github.com/Azure/Azure-Functions 
 - Many available languages:
-  - C, JavaScript, F#,Java, PowerShell, Python, PHP, Batch, Bash
-- Built on top of Azure WebJobs 
+  - C#, JavaScript, F#, Java, PowerShell, Python, PHP, Batch, Bash
+- Built on top of Azure WebJobs SDK
 - Support for multiple runtimes: 
   - .NET Framework and .NET Core 1.0+, NodeJS, Python, PowerShell
 
